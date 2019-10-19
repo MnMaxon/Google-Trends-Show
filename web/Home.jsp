@@ -13,7 +13,7 @@
 <body>
 Help
 <%
-out.print("Help");
+out.print("Hlp");
 %>
 <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/1982_RC01/embed_loader.js"></script>
 <script type="text/javascript">
