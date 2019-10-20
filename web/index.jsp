@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.trends.Game" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 10/19/2019
@@ -7,17 +7,25 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
+<head>
     <title>$Title$</title>
-  </head>
-  <body>
-  Welcome to the Google Trends Show Game
-  <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/1982_RC01/embed_loader.js"></script>
-  <script type="text/javascript">
-    target = 'google';
-    word1 = 'youtube';
-    word2 = 'bing';
-    trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":target +" " + word1,"geo":"","time":"today 12-m"},{"keyword":target + " " + word2,"geo":"","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"q="+target+"%20"+word1+","+target+"%20"+word2+"&hl=en-US&date=today 12-m,today 12-m","guestPath":"https://trends.google.com:443/trends/embed/"});
-  </script>
-  </body>
+</head>
+<body>
+<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/1982_RC01/embed_loader.js"></script>
+<%String oldCode = request.getParameter("code"); if (oldCode == null) oldCode = "";%>
+<script type="text/javascript">
+</script>
+
+<h1 style="font-family: 'Lucida Sans Unicode'; font-size: 400%" > Trendy Words Game!</h1>
+<button type="submit" style="font-size: 35px" onclick="window.location.href='ButtonPlace2.jsp'">Show Rules</button>
+<button type="button" style="color: crimson;font-size: 35px" onclick="window.location.href='ButtonPlace.jsp'" >Create a Game</button>
+<br><br><br><br><br><br><br>
+<%if(!oldCode.equals("")){out.print("<b style=\"font-size: 35px\">Invalid Code!</b>");}%>
+<form name="myForm" action="Join.jsp" method="GET">
+  <b style="font-size: 35px">Game Code:</b> <input type="text" style="font-size: 35px" name="code" value=<%=oldCode%>>
+  <h1>
+  </h1>
+    <input type="submit" style="font-size: 35px" value="Join Game">
+</form>
+</body>
 </html>
