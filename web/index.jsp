@@ -11,6 +11,7 @@
     <title>$Title$</title>
 </head>
 <body>
+<center>
 <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/1982_RC01/embed_loader.js"></script>
 <%String oldCode = request.getParameter("code"); if (oldCode == null) oldCode = "";%>
 <script type="text/javascript">
@@ -27,5 +28,6 @@
   </h1>
     <input type="submit" style="font-size: 35px" value="Join Game">
 </form>
+</center>
 </body>
 </html>
