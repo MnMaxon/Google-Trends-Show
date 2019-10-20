@@ -31,10 +31,13 @@
             <option value="9">
             <option value="10">
         </datalist>
+        <h1>
+        </h1>
 
     </form>
-
-
+    <form name="submit" action="temp.jsp" method="GET">
+        <input type="submit" style="font-size: 35px" value="Submit">
+    </form>
 
 </center>
 </body>
