@@ -19,41 +19,13 @@ Help
     String word1 = "youtube";
     String word2 = "trends";
     out.print("Help");
-    WebClient webClient = new WebClient();
-    String s = null;
-    try {
 
-        // run the Unix "ps -ef" command
-        // using the Runtime exec method:
-
-        Process proc = Runtime.getRuntime().exec("python C:/pytrends/pytrends.py " + target + "_" + word1 + "," + target + "_" + word1 + " time=\"[[2018,10,18],[2018,10,18]]\" title=\"Interest over time\"");
-
-        BufferedReader stdInput = new BufferedReader(new
-                InputStreamReader(proc.getInputStream()));
-
-        BufferedReader stdError = new BufferedReader(new
-                InputStreamReader(proc.getErrorStream()));
-
-        // read the output from the command
-        System.out.println("Here is the standard output of the command:\n");
-        while ((s = stdInput.readLine()) != null) System.out.println(s);
-
-        // read any errors from the attempted command
-        // System.out.println("Here is the standard error of the command (if any):\n");
-        //while ((s = stdError.readLine()) != null) {
-        //   System.out.println(s);
-        //}
-
-    } catch (IOException e) {
-        System.out.println("exception happened - here's what I know: ");
-        e.printStackTrace();
-    }
 %>
 <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/1982_RC01/embed_loader.js"></script>
 <script type="text/javascript">
-    target = 'google';
-    word1 = 'youtube';
-    word2 = 'trends';
+    target = '<%=target%>>';
+    word1 = '<%=word1%>';
+    word2 = '<%=word2%>';
     var ctx;
     wid = trends.embed.renderExploreWidget("TIMESERIES", {
         "comparisonItem": [{

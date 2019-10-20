@@ -13,22 +13,35 @@ public class Game {
 	public int timeLimit;
 	int resultTime = 10;
 	public final String id;
-	int round = 0;
+	private int round = 0;
 	boolean showingResults = true;
 	long roundEndTime = -1;
 	Timer timer = new Timer();
 	public Player leader = null;
 
-	public Game(List<String> wordList, int timeLimit) {
+
+	public Game(List<String> wordList, int timeLimit, String id) {
 		this.wordList = wordList;
 		this.timeLimit = timeLimit;
-		id = randomID();
+		this.id = id;
+		gameMap.put(id, this);
+		System.out.println("Game Created with id: " + id);
+	}
+
+	public Game(List<String> wordList, int timeLimit) {
+		this(wordList, timeLimit, randomID());
 	}
 
 	public Player getPlayerFromName(String name) {
 		for (Team t : teamList) {
 			Player p = t.playerMap.get(name);
 			if (p != null) return p;
+		}
+		return null;
+	}
+	public Team getTeamFromName(String name) {
+		for (Team t : teamList) {
+			if (t.name.equals(name)) return t;
 		}
 		return null;
 	}
@@ -42,17 +55,20 @@ public class Game {
 	public static String randomID() {
 		String id = "";
 		Random r = new Random(new Date().getTime());
-		for (int i = 0; i < 5; i++) id += r.nextInt((char) (24 + 'a'));
+		for (int i = 0; i < 5; i++) {
+			char c = (char) (r.nextInt(24)+'a');
+			id += c;
+		}
 		return id;
 	}
 
 	public String getWord() {
-		if (round <= 0 || round >= wordList.size() + 1) return null;
-		return wordList.get(round - 1);
+		if (getRound() <= 0 || getRound() >= wordList.size() + 1) return null;
+		return wordList.get(getRound() - 1);
 	}
 
 	public void start() {
-		if (round != 0) return;
+		if (getRound() != 0) return;
 		round = 1;
 		roundEndTime = new Date().getTime() + timeLimit * 1000;
 		timer.schedule(new RemindTask(), timeLimit * 1000);
@@ -69,12 +85,12 @@ public class Game {
 	}
 
 	void nextRound() {
-		if (round > wordList.size()) {
+		if (getRound() > wordList.size()) {
 			delete();
 			return;
 		}
 		showingResults = false;
-		round++;
+		round = getRound() + 1;
 		roundEndTime = new Date().getTime() + timeLimit * 1000;
 		timer.schedule(new RemindTask(), timeLimit * 1000);
 	}
@@ -84,6 +100,10 @@ public class Game {
 		calcPoints();
 		roundEndTime = new Date().getTime() + timeLimit * 1000;
 		timer.schedule(new RemindTask(), timeLimit * 1000);
+	}
+
+	public int getRound() {
+		return round;
 	}
 
 	class RemindTask extends TimerTask {
@@ -138,5 +158,13 @@ public class Game {
 			e.printStackTrace();
 		}
 		return ret;
+	}
+
+	public static Game getFromId(String id){
+		return gameMap.get(id);
+	}
+
+	public static Set<String> gameList(){
+		return gameMap.keySet();
 	}
 }
